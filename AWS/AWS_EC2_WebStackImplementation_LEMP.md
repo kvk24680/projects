@@ -1,12 +1,12 @@
-<h3> Web Stack Implementation using LEMP Stack </h3>
+## Web Stack Implementation using LEMP Stack ##
 
-<h5>LAMP vs LEMP</h5>
+<h3>LAMP vs LEMP</h3>
 
 The difference is just in the web server software used. With a LAMP stack the web server used is Apache, whereas with a LEMP stack environment the web server used is Nginx (Engine X). Both web servers operate differently, and require different configurations to set them up.
 
 We need an AWS EC2 instance to execute this project. Once created, SSH and follow up with the instructions.
 
-<h5> Installing NGINX Web Server </h5> 
+<h3> Installing NGINX Web Server </h3> 
 
 ```bash
 sudo apt update
@@ -24,7 +24,7 @@ curl localhost:80
 curl http://<InstanceIP>:80
 ```
 
-<h5>Installing MySQL and completing setup</h5>
+<h3>Installing MySQL and completing setup</h3>
 
 ```bash
 sudo apt install mysql-server
@@ -52,13 +52,13 @@ sudo mysql_secure_installation
 > exit
 ```
 
-<h5>Install PHP</h5>
+<h3>Install PHP</h3>
 
 ```bash
 sudo apt install php-fpm php-mysql -y
 ```
 
-<h5>Configuring Nginx to use PHP Processor</h5>
+<h3>Configuring Nginx to use PHP Processor</h3>
 
 Like we use **virtual hosts** in Apache, we use **server blocks** for **nginx** and to host more than 1 domain for on a single server.
 
@@ -115,7 +115,7 @@ server {
 }
 ```
 
-<h5>Activate and test nginx configuration</h5>
+<h3>Activate and test nginx configuration</h3>
 
 ``` bash
 sudo ln -s /etc/nginx/sites-available/mylempsite /etc/nginx/sites-enabled/
@@ -123,7 +123,7 @@ sudo ln -s /etc/nginx/sites-available/mylempsite /etc/nginx/sites-enabled/
 sudo nginx -t
 ```
 
-<h5>Disable default nginx host and reload</h5>
+<h3>Disable default nginx host and reload</h3>
 
 ```bash
 sudo unlink /etc/nginx/sites-enabled/default
@@ -131,7 +131,7 @@ sudo unlink /etc/nginx/sites-enabled/default
 sudo systemctl reload nginx
 ```
 
-<h5>See if the site gives a response from the terminal </h5>
+<h3>See if the site gives a response from the terminal </h3>
 
 ```bash
 sudo echo 'Hello LEMP from hostname' $(curl -s http://169.254.169.254/latest/meta-data/public-hostname) 'with public IP'
@@ -148,7 +148,7 @@ http://<Public-DNS-Name>:80
 
 The LEMP stack is now fully configured. 
 
-<h5>Create a test PHP file in the document root</h5>
+<h3>Create a test PHP file in the document root</h3>
 
 ```bash
 sudo vi /var/www/mylempsite/info.php
@@ -158,7 +158,7 @@ sudo vi /var/www/mylempsite/info.php
 phpinfo();
 ```
 
-<h5>Test it</h5>
+<h3>Test it</h3>
 
 ```bash
 curl <Server Domain or IP>/info.php
@@ -166,7 +166,7 @@ curl <Server Domain or IP>/info.php
 
 ![PHP HomePage](https://i1.wp.com/www.sumonselim.com/wp-content/uploads/2014/10/66253f7f058e5c326cafc83d6c90999d.png?w=968&ssl=1 "PHP Home Page")
 
-<h5>Remove the PHP file</h5>
+<h3>Remove the PHP file</h3>
 It is recommended to remove the PHP index file as it contains sensitive information.
 ```bash
 sudo rm /var/www/projectlamp/index.php
@@ -174,13 +174,13 @@ sudo rm /var/www/projectlamp/index.php
 
 ---
 
-<h5>RETRIEVING DATA FROM MYSQL DATABASE WITH PHP</h5>
+<h3>RETRIEVING DATA FROM MYSQL DATABASE WITH PHP</h3>
 
 At the time of this writing, the native MySQL PHP library mysqlnd doesn’t support **caching_sha2_authentication**, the default authentication method for **MySQL** **8**. We’ll need to create a new user with the **mysql_native_password** authentication method in order to be able to connect to the MySQL database from PHP.
 
 <br>
 
-<h5>Connect to MySQL console</h5>
+<h3>Connect to MySQL console</h3>
 
 ```bash
 sudo mysql
@@ -213,7 +213,7 @@ mysql -u user1 -p
 SHOW DATABASES;
 ```
 
-<h5>Table Operations</h5>
+<h3>Table Operations</h3>
 
 ```sql
 
@@ -236,7 +236,7 @@ SELECT * FROM db1.todo_list;
 exit
 ```
 
-<h5>PHP script that will connect to MySQL and query for content</h5>
+<h3>PHP script that will connect to MySQL and query for content</h3>
 
 ```bash
 vi /var/www/lempsite/todo_list.php
@@ -260,7 +260,7 @@ try {
     die();
 }
 ```
-<h5>Try Accessing the web page</h5>
+<h3>Try Accessing the web page</h3>
 ```bash
 http://<Public_domain_or_IP>/todo_list.php
 ```

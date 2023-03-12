@@ -17,7 +17,10 @@ Create a security group allowing all internet access `0.0.0.0/0` in the inbound 
 Use `chmod 400 <your pem file>.pem` to give executable permissions.
 
 <h3> Connect to EC2 instance </h3> 
-Use `ssh -i <private-key-name>.pem ubuntu@<Public-IP-address>` to connect to your EC2 instance. 
+
+```bash
+ssh -i <private-key-name>.pem ubuntu@<Public-IP-address>
+```
 
 <h3> Install Apache2 on EC2 Instance </h3> 
 
@@ -121,6 +124,7 @@ sudo apache2ctl configtest
 ```
 
 <h6> Reload Apache2 </h6>
+
 ```bash
 sudo systemctl reload apache2
 ```
@@ -131,9 +135,9 @@ Now our site is active, but we do not have a home page. To create a home page us
 ```bash
 sudo su
 echo 'This is our LAMP site and it works..' > /var/www/index.html
-```
-` curl http://<EC2 Public IP>:80 `
 
+curl http://<EC2 Public IP>:80 
+```
 <h3> Enable PHP on the website </h3>
 
 <h6>Create Index.php</h6>
@@ -168,6 +172,7 @@ On reload, we can see that we have successfully setup PHP
 ![PHP HomePage](https://i1.wp.com/www.sumonselim.com/wp-content/uploads/2014/10/66253f7f058e5c326cafc83d6c90999d.png?w=968&ssl=1 "PHP Home Page")
 
 <h3>Remove the PHP file</h3>
+
 It is recommended to remove the PHP index file as it contains sensitive information.
 ```bash
 sudo rm /var/www/projectlamp/index.php
