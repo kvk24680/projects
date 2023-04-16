@@ -1,0 +1,23 @@
+{
+  "builds": [
+    {
+      "name": "jenkins",
+      "builder_type": "amazon-ebs",
+      "build_time": 1681542219,
+      "files": null,
+      "artifact_id": "us-west-2:ami-024cc652870b5eff9",
+      "packer_run_uuid": "00d75a68-a4eb-e9c7-1b68-2ed04cd8e5b3",
+      "custom_data": null
+    },
+    {
+      "name": "jenkins",
+      "builder_type": "amazon-ebs",
+      "build_time": 1681544637,
+      "files": null,
+      "artifact_id": "us-west-2:ami-0b038ead94fa02dbc",
+      "packer_run_uuid": "b2caa3a7-6a0e-cf5a-df61-1e8fffdd3568",
+      "custom_data": null
+    }
+  ],
+  "last_run_uuid": "b2caa3a7-6a0e-cf5a-df61-1e8fffdd3568"
+}

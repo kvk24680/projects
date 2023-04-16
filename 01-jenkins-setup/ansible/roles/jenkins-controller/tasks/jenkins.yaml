@@ -1,0 +1,56 @@
+---
+- name: New linux Repo signing keys
+  ansible.builtin.shell: |
+    curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null;
+
+    echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null;
+  
+- name: Install Jenkins
+  apt:
+    name: jenkins
+    state: present
+    update_cache: yes
+
+- name: Stop Jenkins service
+  systemd:
+    name: jenkins.service
+    state: stopped
+
+- name: Move Jenkins data to new directory
+  copy: src=/var/lib/jenkins/ dest={{ jenkins_data_dir }} remote_src=yes directory_mode=yes
+
+- name: Change directory owner
+  file:
+    path: "{{ jenkins_data_dir }}"
+    owner: jenkins
+    group: jenkins
+    recurse: yes
+
+- name: Remove old Jenkins data directory
+  file:
+    path: /var/lib/jenkins/
+    state: absent
+
+- name: Create override directory for Jenkins service
+  become: true
+  file:
+    path: /etc/systemd/system/jenkins.service.d
+    state: directory
+
+- name: Add override file for Jenkins
+  template:
+    src: override.conf.j2
+    dest: /etc/systemd/system/jenkins.service.d/override.conf
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Reload systemd daemon configuration
+  systemd:
+    daemon_reload: yes
+
+- name: Start Jnekins Service
+  systemd:
+    name: jenkins
+    state: started
+
