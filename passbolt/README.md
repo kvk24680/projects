@@ -1,4 +1,4 @@
-<h1> Security-first, open sourcepassword manager </h1>
+<h1> Security-first, open source password manager </h1>
 
 Passbolt is a free and open source password manager that allows team members to store and share credentials securely. For instance, the wifi password of your office, the administrator password of a router or your organisation social media account password, all of them can be secured using passbolt.
 
