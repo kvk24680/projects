@@ -43,8 +43,8 @@ git log main
 ```
 #### Reference
 
-#####[Git Rebase vs Merge](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+##### [Git Rebase vs Merge](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 
-#####[Abhishek Veeramalla's Git Tutorial](https://www.youtube.com/watch?v=mT6qrAx14O4&list=PLdpzxOOAlwvIKMhk8WhzN1pYoJ1YU8Csa&index=16)
+##### [Abhishek Veeramalla's Git Tutorial](https://www.youtube.com/watch?v=mT6qrAx14O4&list=PLdpzxOOAlwvIKMhk8WhzN1pYoJ1YU8Csa&index=16)
 
-#####[Git Interview QA Part-1](https://www.youtube.com/watch?v=VmJpdIOiIaU)
+##### [Git Interview QA Part-1](https://www.youtube.com/watch?v=VmJpdIOiIaU)
