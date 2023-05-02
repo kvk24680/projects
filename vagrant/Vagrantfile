@@ -1,0 +1,50 @@
+# https://hub.docker.com/r/tknerr/baseimage-ubuntu
+# https://github.com/kirankumarhm/Vagrant-Docker-Go-Node-with-NVM/blob/master/Vagrantfile
+
+Vagrant.configure(2) do |config|
+    ENV["LC_ALL"] = "en_US.UTF-8"
+    
+    # configure hostname
+    config.vm.hostname = "dev-machine1"
+    
+    # choose docker as provider and ubuntu as base image
+    config.vm.provider "docker" do |d|
+        d.image = "tknerr/baseimage-ubuntu:18.04"
+        d.has_ssh = true
+    end
+
+    # config.vm.share_folder "app", "/home/vagrant/app", "app"
+    
+    # forward a port if needed. this line exposes port 80 of container to port 8080 of host machine
+    config.vm.network "forwarded_port", guest: 80, host: 8080, id: "nginx", auto_correct: true # 192.168.33.0 # protocol: "tcp"
+    
+    # sync a local folder 
+    # config.vm.synced_folder ".", "/usr/share/nginx/html"
+    
+
+    config.vm.network "private_network", ip: "192.168.33.10"
+    
+    # configure a private network if needed. The container will not be accessible from internet.
+    # config.vm.network "private_network", type: "dhcp"           #   enables private network. cannot access from outside
+
+    # this part of code takes the local public key and puts it inside the container so that the container is authenticated using that key
+    config.vm.provision "shell" do |s|  
+        ssh_pub_key = File.readlines("/root/.ssh/vagrant-sample.pub").first.strip
+        s.inline = <<-SHELL
+            echo #{ssh_pub_key} >> /home/vagrant/.ssh/authorized_keys
+            directory="/root/.ssh/"
+            if [ ! -d "$directory" ]; then
+                mkdir -p "$directory"
+                echo "Directory '$directory' created."
+            else
+                echo "Directory '$directory' already exists."
+            fi
+            # sudo touch /root/.ssh/authorized_keys
+            sudo echo #{ssh_pub_key} >> /root/.ssh/authorized_keys
+        SHELL
+    end      
+    
+    # uses shell provisioner and runs script from bootstrap.sh
+    config.vm.provision "shell", path: ".provision/bootstrap.sh", privileged: false
+end
+ 
